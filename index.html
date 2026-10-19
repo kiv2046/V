@@ -255,11 +255,8 @@ button:focus-visible { outline: 4px solid var(--gold); outline-offset: 4px; }
   if (gif.complete && gif.naturalWidth === 0) showMud();
 
   // Boton "No, paso" que huye
-  var lines = [
-    'Ups, casi.', 'Muy lento.', 'Ni lo intentes.', 'El Cinnabon te esta mirando.',
-    'Ese boton esta resbaloso.', 'Piensalo mejor.', 'Clayface dice que no.', 'Ya, di que si.'
-  ];
-  var dodges = 0, flying = false, last = { x: -999, y: -999 };
+  var lines = ['El Cinnabon te está llamando', 'pleaseeee 😭', 'Ups, casi', 'Muy lento', '¿Segura?', '¿Segurísima?', 'Piénsalo'];
+  var count = 0, flying = false, last = { x: -999, y: -999 };
 
   function rectDist(px, py, r) {
     var dx = Math.max(r.left - px, 0, px - r.right);
@@ -292,9 +289,9 @@ button:focus-visible { outline: 4px solid var(--gold); outline-offset: 4px; }
     no.style.top = y + 'px';
     no.classList.remove('pop'); void no.offsetWidth; no.classList.add('pop');
 
-    taunt.textContent = lines[Math.min(dodges, lines.length - 1)];
-    if (dodges >= lines.length - 1) dodges = 2; else dodges++;
-    var g = Math.min(1 + dodges * 0.04, 1.2);
+    taunt.textContent = lines[count % lines.length];
+    count++;
+    var g = Math.min(1 + count * 0.03, 1.2);
     yes.style.setProperty('--grow', g);
   }
 
