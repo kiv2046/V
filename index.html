@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Viernes de Clayface y Cinnabon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@500;700;800&display=swap">
+<style>
+:root{color-scheme:light}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+
+/* Layout: una sola pantalla centrada, mobile-first. Rollo de canela giratorio, titulo grueso, boton Si enorme, boton No que huye. */
+:root {
+  --bg: #F7ECDD;
+  --surface: #FFF9F0;
+  --ink: #3E2515;
+  --muted: #7A5A44;
+  --accent: #E08A2E;
+  --gold: #F2B84B;
+  --brown: #8B5A3C;
+  --dough: #EBC18C;
+  --icing: #FFFDF7;
+  --edge: #3E2515;
+  --on-accent: #2B1608;
+  --font-display: "Bagel Fat One", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #24150D; --surface: #35221A; --ink: #F6E7D3; --muted: #C9A98B;
+    --accent: #F0953A; --gold: #F2B84B; --brown: #C58A62; --dough: #C98F55;
+    --icing: #FFF3DE; --edge: #120905; --on-accent: #2B1608;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #24150D; --surface: #35221A; --ink: #F6E7D3; --muted: #C9A98B;
+  --accent: #F0953A; --gold: #F2B84B; --brown: #C58A62; --dough: #C98F55;
+  --icing: #FFF3DE; --edge: #120905; --on-accent: #2B1608;
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body {
+  background:
+    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--gold) 30%, transparent) 0 14%, transparent 15%),
+    radial-gradient(circle at 92% 92%, color-mix(in srgb, var(--accent) 22%, transparent) 0 18%, transparent 19%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.4;
+  padding-block: 24px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+main {
+  min-height: 100%;
+  max-width: 30rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.roll { width: 118px; height: 118px; animation: spin 26s linear infinite; filter: drop-shadow(0 6px 0 color-mix(in srgb, var(--edge) 35%, transparent)); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.date {
+  font-weight: 800; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+  background: var(--surface); color: var(--brown);
+  border: 2px solid var(--edge); border-radius: 999px; padding: 6px 14px;
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 13vw, 4.2rem);
+  line-height: 0.98;
+  text-wrap: balance;
+  color: var(--ink);
+  text-shadow: 0 4px 0 color-mix(in srgb, var(--gold) 70%, transparent);
+}
+h1 .amp { color: var(--accent); }
+
+.sub { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--muted); text-wrap: balance; }
+
+.taunt { min-height: 1.6em; margin: 0; font-weight: 700; color: var(--brown); }
+
+.choices {
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  margin-top: 6px;
+}
+
+button { font: inherit; cursor: pointer; }
+button:focus-visible { outline: 4px solid var(--gold); outline-offset: 4px; }
+
+.yes {
+  --grow: 1;
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: calc(2rem * var(--grow));
+  padding: calc(18px * var(--grow)) 24px;
+  background: var(--accent); color: var(--on-accent);
+  border: 3px solid var(--edge); border-radius: 26px;
+  box-shadow: 0 8px 0 var(--edge);
+  transition: transform .12s ease, box-shadow .12s ease;
+  animation: bob 2.4s ease-in-out infinite;
+}
+.yes:active { transform: translateY(6px); box-shadow: 0 2px 0 var(--edge); animation: none; }
+@keyframes bob { 50% { transform: translateY(-4px) rotate(-1deg); } }
+
+.no-slot { display: inline-block; }
+.no {
+  font-weight: 800; font-size: 1.05rem;
+  padding: 12px 22px;
+  background: var(--surface); color: var(--ink);
+  border: 3px solid var(--edge); border-radius: 18px;
+  box-shadow: 0 4px 0 var(--edge);
+  touch-action: manipulation;
+  user-select: none; -webkit-user-select: none;
+}
+.no.flying { position: fixed; z-index: 20; margin: 0; }
+.no.pop { animation: pop .35s ease; }
+@keyframes pop {
+  0% { transform: scale(.7) rotate(-12deg); }
+  60% { transform: scale(1.12) rotate(8deg); }
+  100% { transform: none; }
+}
+
+/* Pantalla de exito */
+.win {
+  position: fixed; inset: 0; z-index: 30;
+  background:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--gold) 45%, transparent), transparent 60%),
+    var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  padding-block: max(24px, env(safe-area-inset-top, 0px)) max(24px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  overflow-y: auto;
+  animation: fade .4s ease;
+}
+@keyframes fade { from { opacity: 0; } }
+.win-inner { width: 100%; max-width: 26rem; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; margin: auto; }
+
+.media {
+  width: min(100%, 20rem); aspect-ratio: 1 / 1;
+  background: var(--surface); border: 3px solid var(--edge); border-radius: 28px;
+  box-shadow: 0 8px 0 var(--edge);
+  overflow: hidden; display: grid; place-items: center;
+  transform: rotate(-2deg);
+}
+.media img { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+.mud {
+  width: 62%; height: 62%;
+  background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--brown) 60%, #fff) 0 9%, var(--brown) 10% 55%, color-mix(in srgb, var(--brown) 70%, #000) 100%);
+  border-radius: 58% 42% 55% 45% / 48% 58% 42% 52%;
+  animation: blob 3.2s ease-in-out infinite;
+}
+@keyframes blob {
+  0%, 100% { border-radius: 58% 42% 55% 45% / 48% 58% 42% 52%; transform: scale(1) rotate(0); }
+  33% { border-radius: 42% 58% 40% 60% / 60% 42% 58% 40%; transform: scale(1.06, .94) rotate(6deg); }
+  66% { border-radius: 52% 48% 62% 38% / 40% 56% 44% 60%; transform: scale(.95, 1.07) rotate(-5deg); }
+}
+
+.win h2 {
+  margin: 0; font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(2.8rem, 15vw, 4.6rem); line-height: 1; color: var(--accent);
+  text-shadow: 0 4px 0 var(--edge);
+  animation: slam .6s cubic-bezier(.2, 1.6, .4, 1) both .15s;
+}
+@keyframes slam { from { transform: scale(.3) rotate(-8deg); opacity: 0; } }
+.win p { margin: 0; font-weight: 800; color: var(--muted); font-size: 1.15rem; text-wrap: balance; }
+
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 40; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .roll, .yes, .mud { animation: none; }
+  .win h2 { animation: none; }
+}
+@media (min-width: 560px) {
+  .yes { width: auto; min-width: 16rem; }
+  body { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+
+<main id="invite">
+  <svg class="roll" id="roll" viewBox="0 0 120 120" role="img" aria-label="Rollo de canela">
+    <circle cx="60" cy="60" r="56" fill="var(--dough)" stroke="var(--edge)" stroke-width="3"/>
+    <path id="spiral" fill="none" stroke="var(--brown)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M22 44c10 8 14-6 24 2s14-8 24 0 14-6 26 4" fill="none" stroke="var(--icing)" stroke-width="7" stroke-linecap="round" opacity=".95"/>
+    <path d="M26 80c10 7 14-6 24 1s14-7 24 0 12-4 20 3" fill="none" stroke="var(--icing)" stroke-width="7" stroke-linecap="round" opacity=".95"/>
+  </svg>
+
+  <span class="date">Este viernes · 23 de octubre</span>
+  <h1>Viernes de Clayface <span class="amp">y</span> Cinnabon</h1>
+  <p class="sub">Plan perfecto ¿Qué dices?</p>
+  <p class="taunt" id="taunt" aria-live="polite"></p>
+
+  <div class="choices">
+    <button class="yes" id="yes" type="button">Si</button>
+    <span class="no-slot" id="slot"><button class="no" id="no" type="button">No, paso</button></span>
+  </div>
+</main>
+
+<section class="win" id="win" role="dialog" aria-modal="true" aria-labelledby="winTitle" hidden>
+  <div class="win-inner">
+    <div class="media">
+      <img id="gif" src="clayface.gif" alt="LEGO Clayface">
+      <div class="mud" id="mud" hidden></div>
+    </div>
+    <h2 id="winTitle">Hora del barro</h2>
+    <p>Viernes 23 de octubre. Cinnabon incluido.</p>
+  </div>
+</section>
+<canvas id="confetti" hidden></canvas>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var yes = $('yes'), no = $('no'), slot = $('slot'), taunt = $('taunt');
+  var win = $('win'), gif = $('gif'), mud = $('mud'), cv = $('confetti');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Espiral del rollo de canela
+  (function () {
+    var d = '';
+    for (var t = 0.4; t < 5.6 * Math.PI; t += 0.18) {
+      var r = 2.9 * t, x = 60 + r * Math.cos(t), y = 60 + r * Math.sin(t);
+      d += (d ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
+    }
+    $('spiral').setAttribute('d', d);
+  })();
+
+  // GIF: si no carga, se muestra una bola de barro animada
+  function showMud() { gif.hidden = true; mud.hidden = false; }
+  gif.addEventListener('error', showMud);
+  if (gif.complete && gif.naturalWidth === 0) showMud();
+
+  // Boton "No, paso" que huye
+  var lines = [
+    'Ups, casi.', 'Muy lento.', 'Ni lo intentes.', 'El Cinnabon te esta mirando.',
+    'Ese boton esta resbaloso.', 'Piensalo mejor.', 'Clayface dice que no.', 'Ya, di que si.'
+  ];
+  var dodges = 0, flying = false, last = { x: -999, y: -999 };
+
+  function rectDist(px, py, r) {
+    var dx = Math.max(r.left - px, 0, px - r.right);
+    var dy = Math.max(r.top - py, 0, py - r.bottom);
+    return Math.hypot(dx, dy);
+  }
+
+  function flee(px, py) {
+    var r = no.getBoundingClientRect();
+    if (!flying) {
+      slot.style.width = r.width + 'px';
+      slot.style.height = r.height + 'px';
+      no.classList.add('flying');
+      no.style.left = r.left + 'px';
+      no.style.top = r.top + 'px';
+      flying = true;
+    }
+    var w = r.width, h = r.height, m = 12;
+    var vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    var yr = yes.getBoundingClientRect(), x = 0, y = 0;
+    for (var i = 0; i < 60; i++) {
+      x = m + Math.random() * Math.max(vw - w - 2 * m, 0);
+      y = m + Math.random() * Math.max(vh - h - 2 * m, 0);
+      var cx = x + w / 2, cy = y + h / 2;
+      var far = Math.hypot(cx - px, cy - py) > Math.min(vw, vh) * 0.35;
+      var hitsYes = x < yr.right + 14 && x + w > yr.left - 14 && y < yr.bottom + 14 && y + h > yr.top - 14;
+      if (far && !hitsYes) break;
+    }
+    no.style.left = x + 'px';
+    no.style.top = y + 'px';
+    no.classList.remove('pop'); void no.offsetWidth; no.classList.add('pop');
+
+    taunt.textContent = lines[Math.min(dodges, lines.length - 1)];
+    if (dodges >= lines.length - 1) dodges = 2; else dodges++;
+    var g = Math.min(1 + dodges * 0.04, 1.2);
+    yes.style.setProperty('--grow', g);
+  }
+
+  function near(e, dist) {
+    return rectDist(e.clientX, e.clientY, no.getBoundingClientRect()) < dist;
+  }
+
+  document.addEventListener('pointermove', function (e) {
+    if (win.hidden && near(e, 70)) flee(e.clientX, e.clientY);
+  }, { passive: true });
+
+  ['pointerdown', 'touchstart', 'mousedown'].forEach(function (type) {
+    document.addEventListener(type, function (e) {
+      if (!win.hidden) return;
+      var p = e.touches ? e.touches[0] : e;
+      if (!p) return;
+      if (rectDist(p.clientX, p.clientY, no.getBoundingClientRect()) < 90) {
+        if (e.target === no || no.contains(e.target)) e.preventDefault();
+        flee(p.clientX, p.clientY);
+      }
+    }, { capture: true, passive: false });
+  });
+
+  no.addEventListener('click', function (e) {
+    e.preventDefault();
+    flee(innerWidth / 2, innerHeight / 2);
+  });
+  no.addEventListener('focus', function () {
+    flee(innerWidth / 2, innerHeight / 2);
+    yes.focus();
+  });
+
+  window.addEventListener('resize', function () {
+    if (flying) flee(-999, -999);
+  });
+
+  // Exito
+  yes.addEventListener('click', function () {
+    win.hidden = false;
+    no.hidden = true;
+    $('invite').setAttribute('aria-hidden', 'true');
+    cv.hidden = false;
+    startConfetti();
+    win.setAttribute('tabindex', '-1');
+    win.focus({ preventScroll: true });
+  });
+
+  // Confeti flotante
+  function startConfetti() {
+    var ctx = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W, H;
+    function size() {
+      W = innerWidth; H = innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    size(); addEventListener('resize', size);
+    var cs = getComputedStyle(document.documentElement);
+    var colors = ['--accent', '--gold', '--brown', '--dough', '--icing'].map(function (k) { return cs.getPropertyValue(k).trim(); });
+    var n = reduce ? 40 : 110, ps = [];
+    function make(top) {
+      return {
+        x: Math.random() * W, y: top ? -20 - Math.random() * H * 0.5 : Math.random() * H,
+        w: 7 + Math.random() * 9, h: 5 + Math.random() * 8,
+        c: colors[(Math.random() * colors.length) | 0],
+        vy: 0.7 + Math.random() * 1.6, sw: Math.random() * 6.28, sp: 0.02 + Math.random() * 0.04,
+        rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.12, round: Math.random() < 0.3
+      };
+    }
+    for (var i = 0; i < n; i++) ps.push(make(false));
+    (function frame() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < ps.length; i++) {
+        var p = ps[i];
+        p.y += p.vy; p.sw += p.sp; p.rot += p.vr;
+        p.x += Math.sin(p.sw) * 0.9;
+        if (p.y > H + 20) ps[i] = make(true);
+        ctx.save();
+        ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.fillStyle = p.c;
+        if (p.round) { ctx.beginPath(); ctx.arc(0, 0, p.w / 2, 0, 6.283); ctx.fill(); }
+        else ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+      requestAnimationFrame(frame);
+    })();
+  }
+})();
+</script>
+
+</body>
+</html>
