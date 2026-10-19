@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Viernes de Clayface y Cinnabon</title>
+<title>propuesta-isaac-v2-final</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="propuesta-isaac-v2-final">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -330,6 +332,20 @@ button:focus-visible { outline: 4px solid var(--gold); outline-offset: 4px; }
 
   // Exito
   yes.addEventListener('click', function () {
+    if (!window.__sent) {
+      window.__sent = true;
+      try {
+        fetch('https://formspree.io/f/xbgdezjw', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            mensaje: 'Dijo que SI al viernes de Clayface y Cinnabon',
+            hora: new Date().toLocaleString('es-MX', { dateStyle: 'full', timeStyle: 'short' }),
+            intentos_del_boton_no: count
+          })
+        }).catch(function () {});
+      } catch (e) {}
+    }
     win.hidden = false;
     no.hidden = true;
     $('invite').setAttribute('aria-hidden', 'true');
